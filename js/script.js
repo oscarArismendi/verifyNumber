@@ -1,4 +1,6 @@
-
+const linkShow = document.getElementById('link-show');
+const myDialog = document.getElementById('user-list');
+const closeDialogButton = document.getElementById('closeDialog');
 
 const numberVerify = function () {
     let listVerifyNumber = JSON.parse(localStorage.getItem('listVerifyNumber')) || [];
@@ -45,4 +47,29 @@ function login(){
     }
     document.getElementById("result-verify").innerHTML="Result: "+result;
     event.preventDefault();
+}
+
+function show(){
+    let listVerifyNumber = JSON.parse(localStorage.getItem('listVerifyNumber')) || [];
+    myDialog.showModal(); // Open the dialog
+    myDialog.classList.add('state');
+    let divBefore = document.querySelectorAll(".holder");
+    n = divBefore.length;
+    for(let i = 0;i < n;i++){
+        divBefore[i].remove();
+    }
+    for(let num of listVerifyNumber) {
+        
+        let newDiv = document.createElement("div");
+        newDiv.classList.add("holder");
+        let newContent = document.createTextNode(num); 
+        newDiv.appendChild(newContent);
+        document.getElementById("user-list").insertBefore(newDiv, document.getElementById("user-list").firstElementChild);
+    }
+};
+
+
+function endDialog() {
+    myDialog.close(); // Close the dialog
+    myDialog.classList.remove('state');
 }
